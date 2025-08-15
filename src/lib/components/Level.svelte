@@ -8,28 +8,42 @@
 		style: number;
 	};
 
-	let { word_list, reset } = $props();
+	let { word_list, reset, word_drop_interval } = $props();
+	
+	let active_words: Array<Word> = $state([]);
 
 	let end_game: boolean = $state(false);
 
 	let value: string = $state('');
 
 	function handle_change() {
-		const index = word_list.findIndex((wordObj: Word) => wordObj.match === value.trim());
+		const index = active_words.findIndex((wordObj: Word) => wordObj.match === value.trim());
 
 		if (index !== -1) {
-			word_list.splice(index, 1);
+			active_words.splice(index, 1);
 			value = '';
-			if (word_list.length === 0){
+			if (active_words.length === 0 && word_list.length === 0){
                 end_game = true;
             }
 		}
 	}
 
+	function send_word_falling() {
+		active_words.push(word_list.pop());
+
+		if (word_list.length === 0) return clearInterval(interval);
+	}
+
+	let interval: ReturnType<typeof setInterval>;
+
     onMount(()=>{
-        if (word_list.length === 0){
-            end_game = true;
-        }
+		// show countdown before words start falling
+		// but that should be implemented after the logic is in order
+
+		interval = setInterval(send_word_falling, word_drop_interval);
+		
+		return () => clearInterval(interval);
+
     });
 
 </script>
@@ -44,8 +58,8 @@
 			</h2>
 		</div>
 	{/if}
-	{#each word_list as word}
-		<h1>{word.display_word}</h1>
+	{#each active_words as word}
+		<p>{word.display_word}</p>
 	{/each}
 </div>
 
@@ -55,6 +69,10 @@
 </div>
 
 <style>
+	p {
+		position:absolute;
+	}
+
 	.falling_words {
 		width: 1000px;
 		border: solid;

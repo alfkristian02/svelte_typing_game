@@ -15,10 +15,14 @@
 	let level_selected: boolean = $state(false);
 
 	let word_list: Array<Word> = $state([]);
+	let word_drop_interval: number = $state(0);
 
-	function handle_button(words: Array<Word>) {
-		word_list = words;
+	function handle_button(words: Array<Word>, interval: number) {
 		level_selected = true;
+
+		word_list = words;
+		word_drop_interval = interval;
+
 		return null;
 	}
 
@@ -56,13 +60,13 @@
 			<h1 class="title">Select level:</h1>
 			<div class="grid-container">
 				{#each levels as level}
-					<button class="level-button" onclick={() => handle_button(level.words)}
+					<button class="level-button" onclick={() => handle_button(level.words, level.word_drop_interval)}
 						>{level.title}</button
 					>
 				{/each}
 			</div>
 		{:else}
-			<Level {word_list} {reset} />
+			<Level {word_list} {reset} {word_drop_interval}/>
 		{/if}
 	</div>
 </div>

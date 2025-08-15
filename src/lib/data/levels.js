@@ -1,6 +1,7 @@
 export const levels = [
 	{
 		title: 'Level 1 — Svelte Basics',
+		word_drop_interval: 2000,
 		words: [
 			{ display_word: 'svelte', match: 'svelte', style: 0 },
 			{ display_word: ':bind', match: ':bind', style: 0 },
@@ -26,6 +27,7 @@ export const levels = [
 	},
 	{
 		title: 'Level 2 — Reactive Essentials',
+		word_drop_interval: 2000,
 		words: [
 			{ display_word: '$:', match: '$:', style: 0 },
 			{ display_word: '$count', match: '$count', style: 0 },
@@ -51,6 +53,7 @@ export const levels = [
 	},
 	{
 		title: 'Level 3 — Component Mastery',
+		word_drop_interval: 2000,
 		words: [
 			{ display_word: '<slot>', match: '<slot>', style: 0 },
 			{ display_word: '</slot>', match: '</slot>', style: 0 },
@@ -76,6 +79,7 @@ export const levels = [
 	},
 	{
 		title: 'Level 4 — Advanced Patterns',
+		word_drop_interval: 2000,
 		words: [
 			{ display_word: 'await tick()', match: 'await tick()', style: 0 },
 			{ display_word: '{#await}', match: '{#await}', style: 0 },
@@ -101,6 +105,7 @@ export const levels = [
 	},
 	{
 		title: 'Level 5 — SvelteKit Expedition',
+		word_drop_interval: 2000,
 		words: [
 			{ display_word: '+page.svelte', match: '+page.svelte', style: 0 },
 			{ display_word: '+page.ts', match: '+page.ts', style: 0 },
