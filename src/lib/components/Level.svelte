@@ -69,8 +69,9 @@
 		</div>
 	{/if}
 	{#each active_words as word (word.match)}
-		<p 
-			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-600px'}}
+		<p
+			style="right: {Math.random() * 95}%;"
+			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70vh'}}
 			onintroend={() => {
 					if (active_words.includes(word)) {
 						clearInterval(interval)
@@ -84,27 +85,27 @@
 
 <div class="input">
 	<!-- svelte-ignore a11y_autofocus -->
-	<input autofocus disabled={game_won} type="text" bind:value oninput={handle_change} />
+	<input autofocus disabled={game_won || game_over} type="text" bind:value oninput={handle_change} />
 </div>
 
 <style>
 	p {
-		bottom: 0;
 		position: absolute;
+		bottom: 0;
 	}
 
 	.falling_words {
-		width: 1000px;
-		border: solid;
-		border-width: 1px;
-		height: 600px;
+		width: 70vw;
+		border-bottom: solid;
+		border-width: 5px;
+		height: 70vh;
 		margin: auto;
 		position: relative;
 	}
 
 	.input {
 		text-align: center;
-		margin-top: 5%;
+		margin-top: 50px;
 	}
 
 	input {
@@ -114,8 +115,8 @@
 
 	.game_end {
 		position: absolute;
-		width: 1000px;
-		height: 600px;
+		width: 70vw;
+		height: 60vh;
 		display: flex;
 		justify-content: center;
 		text-align: center;
