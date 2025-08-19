@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { linear } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 
 	type Word = {
@@ -12,7 +13,8 @@
 	
 	let active_words: Array<Word> = $state([]);
 
-	let end_game: boolean = $state(false);
+	let game_won: boolean = $state(false);
+	let game_over: boolean = $state(false)
 
 	let value: string = $state('');
 
@@ -23,7 +25,7 @@
 			active_words.splice(index, 1);
 			value = '';
 			if (active_words.length === 0 && word_list.length === 0){
-                end_game = true;
+                game_won = true;
             }
 		}
 	}
@@ -49,7 +51,7 @@
 </script>
 
 <div class="falling_words">
-	{#if end_game}
+	{#if game_won}
 		<div class="game_end" transition:fly={{ y: '100vh' }}>
 			<h2 class="game_end_text">
 				You win!
@@ -57,20 +59,38 @@
 				<button onclick={reset}>Back to levels</button>
 			</h2>
 		</div>
+	{:else if game_over}
+		<div class="game_end" transition:fly={{ y: '100vh' }}>
+			<h2 class="game_end_text">
+				Game over...
+				<br />
+				<button onclick={reset}>Back to levels</button>
+			</h2>
+		</div>
 	{/if}
-	{#each active_words as word}
-		<p>{word.display_word}</p>
+	{#each active_words as word (word.match)}
+		<p 
+			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-600px'}}
+			onintroend={() => {
+					if (active_words.includes(word)) {
+						clearInterval(interval)
+						game_over = true
+					}
+				}
+			}
+			>{word.display_word}</p>
 	{/each}
 </div>
 
 <div class="input">
 	<!-- svelte-ignore a11y_autofocus -->
-	<input autofocus disabled={end_game} type="text" bind:value oninput={handle_change} />
+	<input autofocus disabled={game_won} type="text" bind:value oninput={handle_change} />
 </div>
 
 <style>
 	p {
-		position:absolute;
+		bottom: 0;
+		position: absolute;
 	}
 
 	.falling_words {
@@ -79,6 +99,7 @@
 		border-width: 1px;
 		height: 600px;
 		margin: auto;
+		position: relative;
 	}
 
 	.input {
