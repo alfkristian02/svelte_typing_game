@@ -1,136 +1,133 @@
 export const levels = [
+	// Level 1 — Introduction
 	{
-		title: 'Level 1 — Svelte Basics',
-		word_drop_interval: 2000,
+		title: 'Level 1 — Introduction',
+		word_drop_interval: 2500,
 		words: [
-			{ display_word: 'svelte', match: 'svelte', style: 0 },
-			{ display_word: ':bind', match: ':bind', style: 0 },
-			{ display_word: '<script>', match: '<script>', style: 0 },
-			{ display_word: '{#if}', match: '{#if}', style: 0 },
-			{ display_word: '{/if}', match: '{/if}', style: 0 },
 			{ display_word: 'props', match: 'props', style: 0 },
-			{ display_word: 'class=', match: 'class=', style: 0 },
-			{ display_word: 'style=', match: 'style=', style: 0 },
-			{ display_word: 'Oh no, you are stuck in vim. Escape it!!', match: ':wq', style: 1 },
-			{ display_word: '<h1>', match: '<h1>', style: 0 },
-			{ display_word: '</h1>', match: '</h1>', style: 0 },
-			{ display_word: 'id=', match: 'id=', style: 0 },
-			{ display_word: 'let count = 0;', match: 'let count = 0;', style: 0 },
-			{ display_word: 'increment()', match: 'increment()', style: 0 },
 			{ display_word: 'npm init svelte', match: 'npm init svelte', style: 1 },
-			{ display_word: 'kit', match: 'kit', style: 0 },
-			{ display_word: 'component', match: 'component', style: 0 },
-			{ display_word: 'html', match: 'html', style: 0 },
+			{ display_word: 'javascript', match: 'javascript', style: 0 },
 			{ display_word: 'css', match: 'css', style: 0 },
-			{ display_word: 'js', match: 'js', style: 0 }
+			{ display_word: 'html', match: 'html', style: 0 },
+			{ display_word: 'component', match: 'component', style: 0 },
+			{ display_word: 'kit', match: 'kit', style: 0 },
+			{ display_word: 'svelte', match: 'svelte', style: 0 }
 		]
 	},
+
+	// Level 2 — Runes
 	{
-		title: 'Level 2 — Reactive Essentials',
-		word_drop_interval: 2000,
+		title: 'Level 2 — Runes',
+		word_drop_interval: 2200,
 		words: [
-			{ display_word: '$:', match: '$:', style: 0 },
-			{ display_word: '$count', match: '$count', style: 0 },
-			{ display_word: 'onMount', match: 'onMount', style: 0 },
-			{ display_word: 'onDestroy', match: 'onDestroy', style: 0 },
-			{ display_word: '{#each}', match: '{#each}', style: 0 },
-			{ display_word: '{/each}', match: '{/each}', style: 0 },
-			{ display_word: '$store', match: '$store', style: 0 },
-			{ display_word: 'console.log', match: 'console.log', style: 0 },
-			{ display_word: 'npm run dev', match: 'npm run dev', style: 1 },
-			{ display_word: 'bind:value', match: 'bind:value', style: 0 },
-			{ display_word: 'two-way', match: 'two-way', style: 0 },
-			{ display_word: 'update()', match: 'update()', style: 0 },
-			{ display_word: 'fetch', match: 'fetch', style: 0 },
-			{ display_word: 'await', match: 'await', style: 0 },
-			{ display_word: 'promise', match: 'promise', style: 0 },
-			{ display_word: 'ref', match: 'ref', style: 0 },
-			{ display_word: 'context', match: 'context', style: 0 },
-			{ display_word: 'store.subscribe', match: 'store.subscribe', style: 0 },
-			{ display_word: 'unsubscribe()', match: 'unsubscribe()', style: 0 },
-			{ display_word: 'repl', match: 'repl', style: 0 }
+			{ display_word: 'signal', match: 'signal', style: 0 },
+			{ display_word: 'rune', match: 'rune', style: 0 },
+			{ display_word: '$host', match: '$host', style: 0 },
+			{ display_word: '$effect', match: '$effect', style: 0 },
+			{ display_word: '$inspect', match: '$inspect', style: 0 },
+			{ display_word: '$props', match: '$props', style: 0 },
+			{ display_word: '$derived', match: '$derived', style: 0 },
+			{ display_word: '$state', match: '$state', style: 0 }
 		]
 	},
+
+	// Level 3 — Template Syntax
 	{
-		title: 'Level 3 — Component Mastery',
-		word_drop_interval: 2000,
+		title: 'Level 3 — Template Syntax',
+		word_drop_interval: 1800,
 		words: [
-			{ display_word: '<slot>', match: '<slot>', style: 0 },
-			{ display_word: '</slot>', match: '</slot>', style: 0 },
-			{ display_word: 'export let', match: 'export let', style: 0 },
-			{ display_word: 'context="module"', match: 'context="module"', style: 0 },
-			{ display_word: 'bind:this', match: 'bind:this', style: 0 },
-			{ display_word: 'dispatch', match: 'dispatch', style: 0 },
-			{ display_word: 'CustomEvent', match: 'CustomEvent', style: 0 },
-			{
-				display_word: 'import { onDestroy } from "svelte";',
-				match: 'import { onDestroy } from "svelte";',
-				style: 1
-			},
-			{ display_word: '<header>', match: '<header>', style: 0 },
-			{ display_word: '</header>', match: '</header>', style: 0 },
-			{ display_word: '<footer>', match: '<footer>', style: 0 },
-			{ display_word: '</footer>', match: '</footer>', style: 0 },
-			{ display_word: 'script context', match: 'script context', style: 0 },
-			{ display_word: 'spread props', match: 'spread props', style: 0 },
-			{ display_word: '{...obj}', match: '{...obj}', style: 0 },
-			{ display_word: 'forwardEvents', match: 'forwardEvents', style: 0 },
-			{ display_word: 'component composition', match: 'component composition', style: 0 },
-			{ display_word: 'slot props', match: 'slot props', style: 0 },
-			{ display_word: 'named slot', match: 'named slot', style: 0 },
-			{ display_word: 'wrapper', match: 'wrapper', style: 0 }
-		]
-	},
-	{
-		title: 'Level 4 — Advanced Patterns',
-		word_drop_interval: 2000,
-		words: [
-			{ display_word: 'await tick()', match: 'await tick()', style: 0 },
-			{ display_word: '{#await}', match: '{#await}', style: 0 },
 			{ display_word: '{/await}', match: '{/await}', style: 0 },
-			{ display_word: 'derived store', match: 'derived store', style: 0 },
-			{ display_word: 'readable store', match: 'readable store', style: 0 },
-			{ display_word: 'writable store', match: 'writable store', style: 0 },
-			{ display_word: 'actions', match: 'actions', style: 0 },
-			{ display_word: 'hydrate', match: 'hydrate', style: 0 },
-			{ display_word: 'context API', match: 'context API', style: 0 },
-			{ display_word: 'pnpm install', match: 'pnpm install', style: 1 },
-			{ display_word: 'crossfade', match: 'crossfade', style: 0 },
-			{ display_word: 'flip', match: 'flip', style: 0 },
-			{ display_word: 'transition', match: 'transition', style: 0 },
-			{ display_word: 'animate', match: 'animate', style: 0 },
-			{ display_word: 'motion', match: 'motion', style: 0 },
-			{ display_word: 'easing', match: 'easing', style: 0 },
-			{ display_word: 'ssr', match: 'ssr', style: 0 },
-			{ display_word: 'csr', match: 'csr', style: 0 },
-			{ display_word: 'hydration', match: 'hydration', style: 0 },
-			{ display_word: 'immutable', match: 'immutable', style: 0 }
+			{ display_word: '{:catch}', match: '{:catch}', style: 0 },
+			{ display_word: '{:then}', match: '{:then}', style: 0 },
+			{ display_word: '{#await}', match: '{#await}', style: 0 },
+			{ display_word: '{/each}', match: '{/each}', style: 0 },
+			{ display_word: '{#each}', match: '{#each}', style: 0 },
+			{ display_word: '{/if}', match: '{/if}', style: 0 },
+			{ display_word: '{:else}', match: '{:else}', style: 0 },
+			{ display_word: '{#if}', match: '{#if}', style: 0 }
 		]
 	},
+
+	// Level 4 — Styling
 	{
-		title: 'Level 5 — SvelteKit Expedition',
-		word_drop_interval: 2000,
+		title: 'Level 4 — Styling',
+		word_drop_interval: 1600,
 		words: [
-			{ display_word: '+page.svelte', match: '+page.svelte', style: 0 },
-			{ display_word: '+page.ts', match: '+page.ts', style: 0 },
-			{ display_word: '+layout.svelte', match: '+layout.svelte', style: 0 },
-			{ display_word: '+layout.ts', match: '+layout.ts', style: 0 },
-			{ display_word: 'load function', match: 'load function', style: 0 },
-			{ display_word: 'form actions', match: 'form actions', style: 0 },
-			{ display_word: 'SSR', match: 'SSR', style: 0 },
-			{ display_word: 'CSR', match: 'CSR', style: 0 },
-			{ display_word: 'adapter-auto', match: 'adapter-auto', style: 0 },
-			{ display_word: 'adapter-static', match: 'adapter-static', style: 0 },
-			{ display_word: 'endpoint', match: 'endpoint', style: 0 },
-			{ display_word: 'hooks.server.ts', match: 'hooks.server.ts', style: 0 },
-			{ display_word: 'server load', match: 'server load', style: 0 },
-			{ display_word: 'universal load', match: 'universal load', style: 0 },
-			{ display_word: 'page data', match: 'page data', style: 0 },
-			{ display_word: 'API route', match: 'API route', style: 0 },
-			{ display_word: 'Vite', match: 'Vite', style: 0 },
-			{ display_word: 'npm run build', match: 'npm run build', style: 1 },
-			{ display_word: 'vercel deploy', match: 'vercel deploy', style: 1 },
-			{ display_word: 'static export', match: 'static export', style: 0 }
+			{ display_word: 'tailwind', match: 'tailwind', style: 0 },
+			{ display_word: 'scoped css', match: 'scoped css', style: 0 },
+			{ display_word: '--var', match: '--var', style: 0 },
+			{ display_word: '.dark-mode', match: '.dark-mode', style: 0 },
+			{ display_word: ':root', match: ':root', style: 0 },
+			{ display_word: ':global()', match: ':global()', style: 0 },
+			{ display_word: 'style=', match: 'style=', style: 0 },
+			{ display_word: 'class=', match: 'class=', style: 0 }
+		]
+	},
+
+	// Level 5 — Special Elements
+	{
+		title: 'Level 5 — Special Elements',
+		word_drop_interval: 1400,
+		words: [
+			{ display_word: '<svelte:component>', match: '<svelte:component>', style: 1 },
+			{ display_word: '<svelte:self>', match: '<svelte:self>', style: 0 },
+			{ display_word: '<svelte:fragment>', match: '<svelte:fragment>', style: 0 },
+			{ display_word: '<svelte:window>', match: '<svelte:window>', style: 0 },
+			{ display_word: '<svelte:element>', match: '<svelte:element>', style: 0 },
+			{ display_word: '<svelte:body>', match: '<svelte:body>', style: 0 },
+			{ display_word: '<svelte:head>', match: '<svelte:head>', style: 0 },
+			{ display_word: '<slot name="header">', match: '<slot name="header">', style: 1 },
+			{ display_word: '<slot>', match: '<slot>', style: 0 }
+		]
+	},
+
+	// Level 6 — Runtime
+	{
+		title: 'Level 6 — Runtime',
+		word_drop_interval: 1200,
+		words: [
+			{ display_word: 'hasContext()', match: 'hasContext()', style: 0 },
+			{ display_word: 'setContext()', match: 'setContext()', style: 0 },
+			{ display_word: 'getContext()', match: 'getContext()', style: 0 },
+			{ display_word: 'createEventDispatcher()', match: 'createEventDispatcher()', style: 1 },
+			{ display_word: 'tick()', match: 'tick()', style: 0 },
+			{ display_word: 'afterUpdate()', match: 'afterUpdate()', style: 0 },
+			{ display_word: 'beforeUpdate()', match: 'beforeUpdate()', style: 0 },
+			{ display_word: 'onDestroy()', match: 'onDestroy()', style: 0 },
+			{ display_word: 'onMount()', match: 'onMount()', style: 0 }
+		]
+	},
+
+	// Level 7 — Reference
+	{
+		title: 'Level 7 — Reference',
+		word_drop_interval: 1000,
+		words: [
+			{ display_word: 'pnpm install svelte', match: 'pnpm install svelte', style: 1 },
+			{ display_word: 'hydration mismatch', match: 'hydration mismatch', style: 0 },
+			{ display_word: 'immutable data', match: 'immutable data', style: 0 },
+			{ display_word: 'crossfade()', match: 'crossfade()', style: 0 },
+			{ display_word: 'animate:flip', match: 'animate:flip', style: 0 },
+			{ display_word: 'transition:fly', match: 'transition:fly', style: 0 },
+			{ display_word: 'derived()', match: 'derived()', style: 0 },
+			{ display_word: 'writable()', match: 'writable()', style: 0 },
+			{ display_word: 'readable()', match: 'readable()', style: 0 }
+		]
+	},
+
+	// Level 8 — Legacy APIs
+	{
+		title: 'Level 8 — Legacy APIs',
+		word_drop_interval: 800,
+		words: [
+			{ display_word: 'vercel deploy --prod', match: 'vercel deploy --prod', style: 1 },
+			{ display_word: 'deprecated', match: 'deprecated', style: 0 },
+			{ display_word: 'legacy api', match: 'legacy api', style: 0 },
+			{ display_word: 'bind:this={el}', match: 'bind:this={el}', style: 0 },
+			{ display_word: 'unsubscribe()', match: 'unsubscribe()', style: 0 },
+			{ display_word: 'store.subscribe()', match: 'store.subscribe()', style: 0 },
+			{ display_word: 'sapper', match: 'sapper', style: 0 },
+			{ display_word: 'context="module"', match: 'context="module"', style: 0 }
 		]
 	}
 ];
