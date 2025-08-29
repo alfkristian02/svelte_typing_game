@@ -1,37 +1,13 @@
 <script lang="ts">
-	type Word = {
-		display_word: string;
-		match: string;
-		style: number;
-	};
-
-	import Level from '$lib/components/Level.svelte';
 	import { levels } from '$lib/data/levels';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
 	let show_start_screen: boolean = $state(true);
-
-	let level_selected: boolean = $state(false);
-
-	let word_list: Array<Word> = $state([]);
-	let word_drop_interval: number = $state(0);
-
-	function handle_button(words: Array<Word>, interval: number) {
-		level_selected = true;
-
-		word_list = words;
-		word_drop_interval = interval;
-
-		return null;
-	}
-
-	function reset() {
-		level_selected = false;
-	}
+	let handleKeyPress: (event: KeyboardEvent) => void;
 
 	onMount(() => {
-		function handleKeyPress(event: KeyboardEvent) {
+		handleKeyPress = (event: KeyboardEvent) => {
 			if (event.key === 'Enter' || event.key === ' ') {
 				event.preventDefault();
 				show_start_screen = false;
@@ -42,6 +18,11 @@
 
 		window.addEventListener('keydown', handleKeyPress);
 	});
+
+	onDestroy(() => {
+		if (handleKeyPress)
+		window.removeEventListener('keydown', handleKeyPress);
+	});
 </script>
 
 <div class="container">
@@ -50,27 +31,18 @@
 			<button
 				class="overlay"
 				transition:fly={{ duration: 600, y: '-100vh' }}
-				onclick={() => (show_start_screen = false)}
-			>
-				<h1 class="landing">Press to start:)</h1>
+				onclick={() => (show_start_screen = false)}>
+					<h1 class="landing">Press to start:)</h1>
 			</button>
 		{/if}
 
-		{#if !level_selected}
-			<h1 class="title">Select level:</h1>
-			<div class="grid-container">
-				{#each levels as level}
-					<button
-						class="level-button"
-						onclick={() => handle_button(level.words, level.word_drop_interval)}
-						tabindex={show_start_screen ? -1 : 0}
-						>{level.title}</button
-					>
-				{/each}
-			</div>
-		{:else}
-			<Level {word_list} {reset} {word_drop_interval} />
-		{/if}
+		<h1 class="title">Select level:</h1>
+		<div class="grid-container">
+			{#each levels as level}
+				<a class="level-button" tabindex={show_start_screen ? -1 : 0} href={'/'.concat(level.route)}
+					>{level.title}</a>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -107,21 +79,16 @@
 
 	.overlay {
 		all: unset;
-
 		height: 90%;
 		width: 95%;
 		left: 0;
 		right: 0;
 		top: 0;
 		bottom: 0;
-
 		background-color: #d1ccc6;
-
 		border-radius: 10px;
-
 		justify-content: center;
 		margin: auto;
-
 		position: absolute;
 	}
 
@@ -143,16 +110,21 @@
 	}
 
 	.level-button {
+		all: unset; /* remove default link styles */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #d1ccc6;
+		border-radius: 5px;
+		padding: 7px;
 		width: 70%;
 		height: 60px;
 		margin: auto;
-		border-radius: 5px;
 	}
 
 	.level-button:hover,
 	.level-button:focus {
 		background-color: #ffd1a6;
 		transform: scale(1.05);
-		outline: none;
 	}
 </style>

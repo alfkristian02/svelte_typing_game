@@ -9,7 +9,7 @@
 		style: number;
 	};
 
-	let { word_list, reset, word_drop_interval } = $props();
+	let { word_list, word_drop_interval } = $props();
 
 	let active_words: Array<Word> = $state([]);
 
@@ -56,7 +56,7 @@
 			<h2 class="game_end_text">
 				You win!
 				<br />
-				<button onclick={reset}>Back to levels</button>
+				<a href="/">Back to levels</a>
 			</h2>
 		</div>
 	{:else if game_over}
@@ -64,7 +64,7 @@
 			<h2 class="game_end_text">
 				Game over...
 				<br />
-				<button onclick={reset}>Back to levels</button>
+				<a href="/">Back to levels</a>
 			</h2>
 		</div>
 	{/if}
@@ -138,8 +138,34 @@
 		font-size: 40px;
 	}
 
-	button {
-		scale: 3;
-		margin-top: 50px;
+	a {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+
+		max-width: 400px; /* optional, keeps button reasonable on large screens */
+		margin: 20px auto 0 auto; /* center horizontally with spacing */
+		padding: 15px;
+
+		border-radius: 5px;
+		border: 2px solid #999; /* subtle border like a native button */
+		background-color: #f0f0f0; /* light neutral background */
+		color: #000; /* default text color */
+
+		font-size: 25px;
+		font-weight: bold;
+		text-align: center;
+		text-decoration: none;
+
+		cursor: pointer;
+		user-select: none;
+
+		transition: all 0.15s ease-in-out;
+	}
+	a:hover,
+	a:focus {
+		transform: scale(1.05);
+		background-color: #e0e0e0;
+		outline: 2px solid #555;
 	}
 </style>

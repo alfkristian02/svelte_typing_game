@@ -1,7 +1,7 @@
 export const levels = [
-	// Level 1 — Introduction
 	{
 		title: 'Level 1 — Introduction',
+		route: 'level1',
 		word_drop_interval: 2500,
 		words: [
 			{ display_word: 'props', match: 'props', style: 0 },
@@ -15,9 +15,9 @@ export const levels = [
 		]
 	},
 
-	// Level 2 — Runes
 	{
 		title: 'Level 2 — Runes',
+		route: 'level2',
 		word_drop_interval: 2200,
 		words: [
 			{ display_word: 'signal', match: 'signal', style: 0 },
@@ -31,9 +31,9 @@ export const levels = [
 		]
 	},
 
-	// Level 3 — Template Syntax
 	{
 		title: 'Level 3 — Template Syntax',
+		route: 'level3',
 		word_drop_interval: 1800,
 		words: [
 			{ display_word: '{/await}', match: '{/await}', style: 0 },
@@ -48,9 +48,9 @@ export const levels = [
 		]
 	},
 
-	// Level 4 — Styling
 	{
 		title: 'Level 4 — Styling',
+		route: 'level4',
 		word_drop_interval: 1600,
 		words: [
 			{ display_word: 'tailwind', match: 'tailwind', style: 0 },
@@ -64,9 +64,9 @@ export const levels = [
 		]
 	},
 
-	// Level 5 — Special Elements
 	{
 		title: 'Level 5 — Special Elements',
+		route: 'level5',
 		word_drop_interval: 1400,
 		words: [
 			{ display_word: '<svelte:component>', match: '<svelte:component>', style: 1 },
@@ -81,9 +81,9 @@ export const levels = [
 		]
 	},
 
-	// Level 6 — Runtime
 	{
 		title: 'Level 6 — Runtime',
+		route: 'level6',
 		word_drop_interval: 1200,
 		words: [
 			{ display_word: 'hasContext()', match: 'hasContext()', style: 0 },
@@ -98,9 +98,9 @@ export const levels = [
 		]
 	},
 
-	// Level 7 — Reference
 	{
 		title: 'Level 7 — Reference',
+		route: 'level7',
 		word_drop_interval: 1000,
 		words: [
 			{ display_word: 'pnpm install svelte', match: 'pnpm install svelte', style: 1 },
@@ -115,9 +115,9 @@ export const levels = [
 		]
 	},
 
-	// Level 8 — Legacy APIs
 	{
 		title: 'Level 8 — Legacy APIs',
+		route: 'level8',
 		word_drop_interval: 800,
 		words: [
 			{ display_word: 'vercel deploy --prod', match: 'vercel deploy --prod', style: 1 },
