@@ -18,7 +18,9 @@
 
 	let value: string = $state('');
 
-	function handle_change() {
+	function handle_change(newValue: string) {
+		value = newValue;
+
 		const index = active_words.findIndex((wordObj: Word) => wordObj.match === value.trim());
 
 		if (index !== -1) {
@@ -66,6 +68,7 @@
 			</h2>
 		</div>
 	{/if}
+
 	{#each active_words as word (word.match)}
 		<p
 			style="right: {Math.random() * 95}%;"
@@ -88,8 +91,8 @@
 		autofocus
 		disabled={game_won || game_over}
 		type="text"
-		bind:value
-		oninput={handle_change}
+		{value}
+		oninput={(e) => handle_change((e.target as HTMLInputElement).value)}
 	/>
 </div>
 
