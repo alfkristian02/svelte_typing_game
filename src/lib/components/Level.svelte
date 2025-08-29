@@ -4,8 +4,8 @@
 	import { fly } from 'svelte/transition';
 
 	type Words = {
-		word: string
-	}
+		word: string;
+	};
 
 	let { word_list, word_drop_interval } = $props();
 
@@ -78,9 +78,8 @@
 			{word.word}
 		</p>
 	{/each}
-	<img src="/images/flames.png" alt="Flames, meaning end of falling words display">
+	<img src="/images/flames.png" alt="Flames, meaning end of falling words display" />
 </div>
-
 
 <div class="input">
 	<!-- svelte-ignore a11y_autofocus -->
@@ -94,13 +93,12 @@
 </div>
 
 <style>
-	p, img {
-		position: absolute;
-		bottom: 0;
-	}
-
-	img {
-		width: 100%;
+	@font-face {
+		font-family: 'woffwoff';
+		src: url('/fonts/falling_words.woff2') format('woff2');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
 	}
 
 	.falling_words {
@@ -108,6 +106,17 @@
 		height: 70vh;
 		margin: auto;
 		position: relative;
+		font-family: 'woffwoff';
+	}
+
+	p,
+	img {
+		position: absolute;
+		bottom: 0;
+	}
+
+	img {
+		width: 100%;
 	}
 
 	.input {
