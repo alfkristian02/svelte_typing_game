@@ -125,6 +125,10 @@
 		position: absolute;
 	}
 
+	.overlay:focus {
+		border-style: solid;
+	}
+
 	.content {
 		margin: auto;
 		width: 90%;
