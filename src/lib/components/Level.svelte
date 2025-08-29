@@ -10,11 +10,11 @@
 	};
 
 	let { word_list, reset, word_drop_interval } = $props();
-	
+
 	let active_words: Array<Word> = $state([]);
 
 	let game_won: boolean = $state(false);
-	let game_over: boolean = $state(false)
+	let game_over: boolean = $state(false);
 
 	let value: string = $state('');
 
@@ -24,9 +24,9 @@
 		if (index !== -1) {
 			active_words.splice(index, 1);
 			value = '';
-			if (active_words.length === 0 && word_list.length === 0){
-                game_won = true;
-            }
+			if (active_words.length === 0 && word_list.length === 0) {
+				game_won = true;
+			}
 		}
 	}
 
@@ -38,16 +38,14 @@
 
 	let interval: ReturnType<typeof setInterval>;
 
-    onMount(()=>{
+	onMount(() => {
 		// show countdown before words start falling
 		// but that should be implemented after the logic is in order
 
 		interval = setInterval(send_word_falling, word_drop_interval);
-		
+
 		return () => clearInterval(interval);
-
-    });
-
+	});
 </script>
 
 <div class="falling_words">
@@ -71,21 +69,28 @@
 	{#each active_words as word (word.match)}
 		<p
 			style="right: {Math.random() * 95}%;"
-			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70vh'}}
+			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70vh' }}
 			onintroend={() => {
-					if (active_words.includes(word)) {
-						clearInterval(interval)
-						game_over = true
-					}
+				if (active_words.includes(word)) {
+					clearInterval(interval);
+					game_over = true;
 				}
-			}
-			>{word.display_word}</p>
+			}}
+		>
+			{word.display_word}
+		</p>
 	{/each}
 </div>
 
 <div class="input">
 	<!-- svelte-ignore a11y_autofocus -->
-	<input autofocus disabled={game_won || game_over} type="text" bind:value oninput={handle_change} />
+	<input
+		autofocus
+		disabled={game_won || game_over}
+		type="text"
+		bind:value
+		oninput={handle_change}
+	/>
 </div>
 
 <style>

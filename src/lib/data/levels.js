@@ -62,7 +62,11 @@ export const levels = [
 			{ display_word: 'bind:this', match: 'bind:this', style: 0 },
 			{ display_word: 'dispatch', match: 'dispatch', style: 0 },
 			{ display_word: 'CustomEvent', match: 'CustomEvent', style: 0 },
-			{ display_word: 'import { onDestroy } from "svelte";', match: 'import { onDestroy } from "svelte";', style: 1 },
+			{
+				display_word: 'import { onDestroy } from "svelte";',
+				match: 'import { onDestroy } from "svelte";',
+				style: 1
+			},
 			{ display_word: '<header>', match: '<header>', style: 0 },
 			{ display_word: '</header>', match: '</header>', style: 0 },
 			{ display_word: '<footer>', match: '<footer>', style: 0 },

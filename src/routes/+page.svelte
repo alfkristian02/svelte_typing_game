@@ -60,13 +60,16 @@
 			<h1 class="title">Select level:</h1>
 			<div class="grid-container">
 				{#each levels as level}
-					<button class="level-button" onclick={() => handle_button(level.words, level.word_drop_interval)}
+					<button
+						class="level-button"
+						onclick={() => handle_button(level.words, level.word_drop_interval)}
+						tabindex={show_start_screen ? -1 : 0}
 						>{level.title}</button
 					>
 				{/each}
 			</div>
 		{:else}
-			<Level {word_list} {reset} {word_drop_interval}/>
+			<Level {word_list} {reset} {word_drop_interval} />
 		{/if}
 	</div>
 </div>
