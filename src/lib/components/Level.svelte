@@ -3,15 +3,13 @@
 	import { linear } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 
-	type Word = {
-		display_word: string;
-		match: string;
-		style: number;
-	};
+	type Words = {
+		word: string
+	}
 
 	let { word_list, word_drop_interval } = $props();
 
-	let active_words: Array<Word> = $state([]);
+	let active_words: Array<Words> = $state([]);
 
 	let game_won: boolean = $state(false);
 	let game_over: boolean = $state(false);
@@ -21,7 +19,7 @@
 	function handle_change(newValue: string) {
 		value = newValue;
 
-		const index = active_words.findIndex((wordObj: Word) => wordObj.match === value.trim());
+		const index = active_words.findIndex((words: Words) => words.word === value.trim());
 
 		if (index !== -1) {
 			active_words.splice(index, 1);
@@ -41,9 +39,6 @@
 	let interval: ReturnType<typeof setInterval>;
 
 	onMount(() => {
-		// show countdown before words start falling
-		// but that should be implemented after the logic is in order
-
 		interval = setInterval(send_word_falling, word_drop_interval);
 
 		return () => clearInterval(interval);
@@ -69,9 +64,9 @@
 		</div>
 	{/if}
 
-	{#each active_words as word (word.match)}
+	{#each active_words as word (word)}
 		<p
-			style="right: {Math.random() * 95}%;"
+			style="right: {Math.random() * 90}%;"
 			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70vh' }}
 			onintroend={() => {
 				if (active_words.includes(word)) {
@@ -80,10 +75,12 @@
 				}
 			}}
 		>
-			{word.display_word}
+			{word.word}
 		</p>
 	{/each}
+	<img src="/images/flames.png" alt="Flames, meaning end of falling words display">
 </div>
+
 
 <div class="input">
 	<!-- svelte-ignore a11y_autofocus -->
@@ -97,15 +94,17 @@
 </div>
 
 <style>
-	p {
+	p, img {
 		position: absolute;
 		bottom: 0;
 	}
 
+	img {
+		width: 100%;
+	}
+
 	.falling_words {
 		width: 70vw;
-		border-bottom: solid;
-		border-width: 5px;
 		height: 70vh;
 		margin: auto;
 		position: relative;
@@ -162,6 +161,7 @@
 
 		transition: all 0.15s ease-in-out;
 	}
+
 	a:hover,
 	a:focus {
 		transform: scale(1.05);
