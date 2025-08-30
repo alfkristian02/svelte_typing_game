@@ -1,34 +1,22 @@
 export const levels = [
 	{
+		title: 'test',
+		route: 'test',
+		word_drop_interval: 100,
+		words: ['test']
+	},
+	{
 		title: 'Level 1 — Introduction',
 		route: 'level1',
 		word_drop_interval: 2500,
-		words: [
-			{ word: 'props' },
-			{ word: 'npm init svelte' },
-			{ word: 'javascript' },
-			{ word: 'css' },
-			{ word: 'html' },
-			{ word: 'component' },
-			{ word: 'kit' },
-			{ word: 'svelte' }
-		]
+		words: ['props', 'npm init svelte', 'javascript', 'css', 'html', 'component', 'kit', 'svelte']
 	},
 
 	{
 		title: 'Level 2 — Runes',
 		route: 'level2',
 		word_drop_interval: 2200,
-		words: [
-			{ word: 'signal' },
-			{ word: 'rune' },
-			{ word: '$host' },
-			{ word: '$effect' },
-			{ word: '$inspect' },
-			{ word: '$props' },
-			{ word: '$derived' },
-			{ word: '$state' }
-		]
+		words: ['signal', 'rune', '$host', '$effect', '$inspect', '$props', '$derived', '$state']
 	},
 
 	{
@@ -36,15 +24,15 @@ export const levels = [
 		route: 'level3',
 		word_drop_interval: 1800,
 		words: [
-			{ word: '{/await}' },
-			{ word: '{:catch}' },
-			{ word: '{:then}' },
-			{ word: '{#await}' },
-			{ word: '{/each}' },
-			{ word: '{#each}' },
-			{ word: '{/if}' },
-			{ word: '{:else}' },
-			{ word: '{#if}' }
+			'{/await}',
+			'{:catch}',
+			'{:then}',
+			'{#await}',
+			'{/each}',
+			'{#each}',
+			'{/if}',
+			'{:else}',
+			'{#if}'
 		]
 	},
 
@@ -53,14 +41,14 @@ export const levels = [
 		route: 'level4',
 		word_drop_interval: 1600,
 		words: [
-			{ word: 'tailwind' },
-			{ word: 'scoped css' },
-			{ word: '--var' },
-			{ word: '.dark-mode' },
-			{ word: ':root' },
-			{ word: ':global()' },
-			{ word: 'style=' },
-			{ word: 'class=' }
+			'tailwind',
+			'scoped css',
+			'--var',
+			'.dark-mode',
+			':root',
+			':global()',
+			'style=',
+			'class='
 		]
 	},
 
@@ -69,15 +57,15 @@ export const levels = [
 		route: 'level5',
 		word_drop_interval: 1400,
 		words: [
-			{ word: '<svelte:component>' },
-			{ word: '<svelte:self>' },
-			{ word: '<svelte:fragment>' },
-			{ word: '<svelte:window>' },
-			{ word: '<svelte:element>' },
-			{ word: '<svelte:body>' },
-			{ word: '<svelte:head>' },
-			{ word: '<slot name="header">' },
-			{ word: '<slot>' }
+			'<svelte:component>',
+			'<svelte:self>',
+			'<svelte:fragment>',
+			'<svelte:window>',
+			'<svelte:element>',
+			'<svelte:body>',
+			'<svelte:head>',
+			'<slot name="header">',
+			'<slot>'
 		]
 	},
 
@@ -86,15 +74,15 @@ export const levels = [
 		route: 'level6',
 		word_drop_interval: 1200,
 		words: [
-			{ word: 'hasContext()' },
-			{ word: 'setContext()' },
-			{ word: 'getContext()' },
-			{ word: 'createEventDispatcher()' },
-			{ word: 'tick()' },
-			{ word: 'afterUpdate()' },
-			{ word: 'beforeUpdate()' },
-			{ word: 'onDestroy()' },
-			{ word: 'onMount()' }
+			'hasContext()',
+			'setContext()',
+			'getContext()',
+			'createEventDispatcher()',
+			'tick()',
+			'afterUpdate()',
+			'beforeUpdate()',
+			'onDestroy()',
+			'onMount()'
 		]
 	},
 
@@ -103,15 +91,15 @@ export const levels = [
 		route: 'level7',
 		word_drop_interval: 1000,
 		words: [
-			{ word: 'pnpm install svelte' },
-			{ word: 'hydration mismatch' },
-			{ word: 'immutable data' },
-			{ word: 'crossfade()' },
-			{ word: 'animate:flip' },
-			{ word: 'transition:fly' },
-			{ word: 'derived()' },
-			{ word: 'writable()' },
-			{ word: 'readable()' }
+			'pnpm install svelte',
+			'hydration mismatch',
+			'immutable data',
+			'crossfade()',
+			'animate:flip',
+			'transition:fly',
+			'derived()',
+			'writable()',
+			'readable()'
 		]
 	},
 
@@ -120,14 +108,14 @@ export const levels = [
 		route: 'level8',
 		word_drop_interval: 800,
 		words: [
-			{ word: 'vercel deploy --prod' },
-			{ word: 'deprecated' },
-			{ word: 'legacy api' },
-			{ word: 'bind:this={el}' },
-			{ word: 'unsubscribe()' },
-			{ word: 'store.subscribe()' },
-			{ word: 'sapper' },
-			{ word: 'context="module"' }
+			'vercel deploy --prod',
+			'deprecated',
+			'legacy api',
+			'bind:this={el}',
+			'unsubscribe()',
+			'store.subscribe()',
+			'sapper',
+			'context="module"'
 		]
 	}
 ];
