@@ -59,9 +59,9 @@
 <style>
 	.github-logo {
 		position: absolute;
-		height: 40px;
-		left: 30px;
-		top: 30px;
+		height: 3vh;
+		left: 2vw;
+		top: 2vw;
 	}
 	.landing {
 		color: #ff3e00;
@@ -106,7 +106,7 @@
 	}
 
 	.level-button {
-		all: unset; /* remove default link styles */
+		all: unset;
 		display: flex;
 		justify-content: center;
 		align-items: center;

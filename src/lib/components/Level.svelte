@@ -101,8 +101,21 @@
 <style>
 	.back {
 		position: absolute;
-		left: 50px;
-		top: 50px;
+		text-decoration: none;
+		left: 5vw;
+		top: 5vw;
+		padding: 10px;
+		border-radius: 5px;
+		border: 2px solid #999;
+		background-color: #f0f0f0;
+		transition: all 0.15s ease-in-out;
+		z-index: 100;
+	}
+
+	.back:hover,
+	.back:focus {
+		transform: scale(1.05);
+		background-color: #e0e0e0;
 	}
 
 	@font-face {
@@ -175,25 +188,5 @@
 		opacity: 0.6;
 		letter-spacing: 15px;
 		font-size: 40px;
-	}
-
-	a {
-		padding: 15px;
-
-		border-radius: 5px;
-		border: 2px solid #999; /* subtle border like a native button */
-		background-color: #f0f0f0; /* light neutral background */
-
-		font-size: 25px;
-		text-decoration: none;
-
-		transition: all 0.15s ease-in-out;
-	}
-
-	a:hover,
-	a:focus {
-		transform: scale(1.05);
-		background-color: #e0e0e0;
-		outline: 2px solid #555;
 	}
 </style>
