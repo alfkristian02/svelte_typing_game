@@ -130,6 +130,7 @@
 
 		margin-top: 4vh;
 		scale: 1.5;
+		font-size: 16px;
 	}
 
 	@media (min-width: 800px) {
