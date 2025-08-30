@@ -67,7 +67,7 @@
 	{#each active_words as word (word)}
 		<p
 			style="right: {Math.random() * 90}%;"
-			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70vh' }}
+			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
 			onintroend={() => {
 				if (active_words.includes(word)) {
 					clearInterval(interval);
@@ -103,12 +103,11 @@
 
 	.falling_words {
 		width: 70vw;
-		height: 70vh;
+		height: 70dvh;
 		margin: auto;
 		position: relative;
 		font-family: 'woffwoff';
 	}
-	
 
 	p,
 	img,
