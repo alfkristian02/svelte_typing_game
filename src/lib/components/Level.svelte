@@ -3,71 +3,47 @@
 	import { linear } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 
-	type Words = {
-		word: string;
-	};
-
 	let { word_list, word_drop_interval } = $props();
 
-	let active_words: Array<Words> = $state([]);
-
-	let game_won: boolean = $state(false);
-	let game_over: boolean = $state(false);
-
+	let active_words: Array<string> = $state([]);
+	let game_end: boolean = $state(false);
 	let value: string = $state('');
 
-	function handle_change(newValue: string) {
-		value = newValue;
+	let send_word_falling_interval: ReturnType<typeof setInterval>;
 
-		const index = active_words.findIndex(
-			(words: Words) => words.word === value.trim().toLowerCase()
-		);
+	$effect(() => {
+		const index = active_words.findIndex((word: string) => word === value.trim().toLowerCase());
 
 		if (index !== -1) {
 			active_words.splice(index, 1);
 			value = '';
 			if (active_words.length === 0 && word_list.length === 0) {
-				game_won = true;
+				game_end = true;
 			}
 		}
-	}
+	});
 
 	function send_word_falling() {
 		active_words.push(word_list.pop());
-
-		if (word_list.length === 0) return clearInterval(interval);
+		if (word_list.length === 0) {
+			clearInterval(send_word_falling_interval);
+		}
 	}
 
-	let interval: ReturnType<typeof setInterval>;
-
 	onMount(() => {
-		interval = setInterval(send_word_falling, word_drop_interval);
+		send_word_falling_interval = setInterval(send_word_falling, word_drop_interval);
 
-		return () => clearInterval(interval);
+		return () => clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
 	});
 </script>
 
-<a
-	class="back"
-	href="/"
-	onclick={(e) => {
-		clearInterval(interval); // stop falling words
-		active_words = [];
-		game_won = false;
-		game_over = false;
-		value = '';
-	}}>&larr;</a
->
+<a class="back" href="/">&larr;</a>
 
 <div class="falling_words">
-	{#if game_won}
-		<div class="game_end" transition:fly={{ y: '100dvh' }}>
-			<h2 class="game_end_text">You win!</h2>
-		</div>
-	{:else if game_over}
-		<div class="game_end" transition:fly={{ y: '100dvh' }}>
-			<h2 class="game_end_text">Game over...</h2>
-		</div>
+	{#if game_end}
+		<h2 class="game_end_text" transition:fly>
+			{active_words.length === 0 ? 'You win!' : 'Game over...'}
+		</h2>
 	{/if}
 
 	{#each active_words as word (word)}
@@ -75,28 +51,24 @@
 			style="right: {Math.random() * 90}%;"
 			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
 			onintroend={() => {
-				if (active_words.includes(word)) {
-					clearInterval(interval);
-					game_over = true;
-				}
+				clearInterval(send_word_falling_interval); // stop new words form falling
+				game_end = true;
 			}}
 		>
-			{word.word}
+			{word}
 		</p>
 	{/each}
-	<div class="hide-overflow">
-		<img src="/images/flames.png" alt="Flames, meaning end of falling words display" />
+
+	<div class="flames-container">
+		<img
+			src="/images/flames.png"
+			alt="Flames, meaning that the game ends if a words falls to here"
+		/>
 	</div>
 </div>
 
 <!-- svelte-ignore a11y_autofocus -->
-<input
-	autofocus
-	disabled={game_won || game_over}
-	type="text"
-	{value}
-	oninput={(e) => handle_change((e.target as HTMLInputElement).value)}
-/>
+<input autofocus disabled={game_end} type="text" bind:value />
 
 <style>
 	.back {
@@ -119,68 +91,56 @@
 	}
 
 	@font-face {
-		font-family: 'woffwoff';
+		font-family: 'level_font';
 		src: url('/fonts/falling_words.woff2') format('woff2');
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
 	}
 
 	.falling_words {
+		font-family: 'level_font';
 		width: 70vw;
 		height: 70dvh;
 		margin: auto;
 		position: relative;
-		font-family: 'woffwoff';
+		display: grid; /* to vertically align the game_end text*/
 	}
 
-	p,
-	img,
-	.hide-overflow {
+	.flames-container {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		overflow: hidden; /* hide the parts of the picture that does not fit */
+		text-align: center;
+	}
+
+	img {
+		height: 10vh;
+	}
+
+	p {
+		white-space: nowrap; /* a word should never appear over more than one line */
 		position: absolute;
 		bottom: 0;
 	}
 
-	.hide-overflow {
-		width: 100%;
-		height: 50px;
-		overflow: hidden;
-	}
-
-	img {
-		height: 50px;
-	}
-
-	p {
-		white-space: nowrap;
-	}
-
 	input {
+		user-select: all;
+
 		display: block;
 		margin: auto;
-		margin-top: 42px;
-		user-select: all;
+
+		margin-top: 4vh;
+		scale: 1.5;
 	}
 
-	@media (min-width: 480px) {
-		input {
-			scale: 1.3;
-		}
-	}
-	@media (min-width: 1024px) {
+	@media (min-width: 800px) {
 		input {
 			scale: 2;
 		}
 	}
-
-	.game_end {
-		position: absolute;
-		width: 70vw;
-		height: 60vh;
-		display: flex;
-		justify-content: center;
-		text-align: center;
-		align-items: center;
+	@media (min-width: 1200px) {
+		input {
+			scale: 2.5;
+		}
 	}
 
 	.game_end_text {
@@ -188,5 +148,7 @@
 		opacity: 0.6;
 		letter-spacing: 15px;
 		font-size: 40px;
+		text-align: center;
+		align-self: center;
 	}
 </style>
