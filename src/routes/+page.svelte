@@ -14,36 +14,33 @@
 
 				window.removeEventListener('keydown', handleKeyPress);
 			}
-		}
+		};
 
 		window.addEventListener('keydown', handleKeyPress);
 	});
 
 	onDestroy(() => {
-		if (handleKeyPress)
-		window.removeEventListener('keydown', handleKeyPress);
+		if (handleKeyPress) window.removeEventListener('keydown', handleKeyPress);
 	});
 </script>
 
 <div class="container">
-	<div class="content">
-		{#if show_start_screen}
-			<button
-				class="overlay"
-				transition:fly={{ duration: 600, y: '-100vh' }}
-				onclick={() => (show_start_screen = false)}>
-					<h1 class="landing">Press to start:)</h1>
-			</button>
-		{/if}
-
+	{#if show_start_screen}
+		<button
+			class="overlay"
+			transition:fly={{ duration: 600, y: '-100vh' }}
+			onclick={() => (show_start_screen = false)}
+		>
+			<h1 class="landing">Press to start:)</h1>
+		</button>
+	{:else}
 		<h1 class="title">Select level:</h1>
-		<div class="grid-container">
-			{#each levels as level}
-				<a class="level-button" tabindex={show_start_screen ? -1 : 0} href={'/'.concat(level.route)}
-					>{level.title}</a>
-			{/each}
-		</div>
-	</div>
+		{#each levels as level}
+			<a class="level-button" tabindex={show_start_screen ? -1 : 0} href={'/'.concat(level.route)}
+				>{level.title}</a
+			>
+		{/each}
+	{/if}
 </div>
 
 <!-- :root {
@@ -57,11 +54,6 @@
 } -->
 
 <style>
-	.container {
-		display: flex;
-		height: 95vh;
-	}
-
 	.landing {
 		color: #ff3e00;
 		justify-content: center;
@@ -96,17 +88,12 @@
 		border-style: solid;
 	}
 
-	.content {
+	.container {
+		display: grid;
 		margin: auto;
 		width: 90%;
 		height: 90%;
-	}
-
-	.grid-container {
-		margin-top: 100px;
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 10px;
+		gap: 20px;
 	}
 
 	.level-button {

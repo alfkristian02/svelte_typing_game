@@ -19,7 +19,7 @@
 	function handle_change(newValue: string) {
 		value = newValue;
 
-		const index = active_words.findIndex((words: Words) => words.word === value.trim());
+		const index = active_words.findIndex((words: Words) => words.word === value.trim().toLowerCase());
 
 		if (index !== -1) {
 			active_words.splice(index, 1);
@@ -78,19 +78,19 @@
 			{word.word}
 		</p>
 	{/each}
-	<img src="/images/flames.png" alt="Flames, meaning end of falling words display" />
+	<div class="hide-overflow">
+		<img src="/images/flames.png" alt="Flames, meaning end of falling words display" />
+	</div>
 </div>
 
-<div class="input">
-	<!-- svelte-ignore a11y_autofocus -->
-	<input
-		autofocus
-		disabled={game_won || game_over}
-		type="text"
-		{value}
-		oninput={(e) => handle_change((e.target as HTMLInputElement).value)}
-	/>
-</div>
+<!-- svelte-ignore a11y_autofocus -->
+<input
+	autofocus
+	disabled={game_won || game_over}
+	type="text"
+	{value}
+	oninput={(e) => handle_change((e.target as HTMLInputElement).value)}
+/>
 
 <style>
 	@font-face {
@@ -108,25 +108,45 @@
 		position: relative;
 		font-family: 'woffwoff';
 	}
+	
 
 	p,
-	img {
+	img,
+	.hide-overflow {
 		position: absolute;
 		bottom: 0;
 	}
 
-	img {
+	.hide-overflow {
 		width: 100%;
+		height: 50px;
+		overflow: hidden;
 	}
 
-	.input {
-		text-align: center;
-		margin-top: 50px;
+	img {
+		height: 50px;
+	}
+	
+	p {
+		white-space: nowrap;
 	}
 
 	input {
-		scale: 3;
+		display: block;
+		margin: auto;
+		margin-top: 42px;
 		user-select: all;
+	}
+
+	@media (min-width: 480px) {
+		input {
+			scale: 1.3;
+		}
+	}
+	@media (min-width: 1024px) {
+		input {
+			scale: 2;
+		}
 	}
 
 	.game_end {
