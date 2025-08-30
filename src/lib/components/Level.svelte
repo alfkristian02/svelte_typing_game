@@ -19,7 +19,9 @@
 	function handle_change(newValue: string) {
 		value = newValue;
 
-		const index = active_words.findIndex((words: Words) => words.word === value.trim().toLowerCase());
+		const index = active_words.findIndex(
+			(words: Words) => words.word === value.trim().toLowerCase()
+		);
 
 		if (index !== -1) {
 			active_words.splice(index, 1);
@@ -45,22 +47,26 @@
 	});
 </script>
 
+<a
+	class="back"
+	href="/"
+	onclick={(e) => {
+		clearInterval(interval); // stop falling words
+		active_words = [];
+		game_won = false;
+		game_over = false;
+		value = '';
+	}}>&larr;</a
+>
+
 <div class="falling_words">
 	{#if game_won}
-		<div class="game_end" transition:fly={{ y: '100vh' }}>
-			<h2 class="game_end_text">
-				You win!
-				<br />
-				<a href="/">Back to levels</a>
-			</h2>
+		<div class="game_end" transition:fly={{ y: '100dvh' }}>
+			<h2 class="game_end_text">You win!</h2>
 		</div>
 	{:else if game_over}
-		<div class="game_end" transition:fly={{ y: '100vh' }}>
-			<h2 class="game_end_text">
-				Game over...
-				<br />
-				<a href="/">Back to levels</a>
-			</h2>
+		<div class="game_end" transition:fly={{ y: '100dvh' }}>
+			<h2 class="game_end_text">Game over...</h2>
 		</div>
 	{/if}
 
@@ -93,6 +99,12 @@
 />
 
 <style>
+	.back {
+		position: absolute;
+		left: 50px;
+		top: 50px;
+	}
+
 	@font-face {
 		font-family: 'woffwoff';
 		src: url('/fonts/falling_words.woff2') format('woff2');
@@ -125,7 +137,7 @@
 	img {
 		height: 50px;
 	}
-	
+
 	p {
 		white-space: nowrap;
 	}
@@ -166,26 +178,14 @@
 	}
 
 	a {
-		display: inline-flex;
-		justify-content: center;
-		align-items: center;
-
-		max-width: 400px; /* optional, keeps button reasonable on large screens */
-		margin: 20px auto 0 auto; /* center horizontally with spacing */
 		padding: 15px;
 
 		border-radius: 5px;
 		border: 2px solid #999; /* subtle border like a native button */
 		background-color: #f0f0f0; /* light neutral background */
-		color: #000; /* default text color */
 
 		font-size: 25px;
-		font-weight: bold;
-		text-align: center;
 		text-decoration: none;
-
-		cursor: pointer;
-		user-select: none;
 
 		transition: all 0.15s ease-in-out;
 	}

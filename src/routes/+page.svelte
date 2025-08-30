@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { levels } from '$lib/data/levels';
 	import { onDestroy, onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 
 	let show_start_screen: boolean = $state(true);
 	let handleKeyPress: (event: KeyboardEvent) => void;
@@ -34,6 +34,9 @@
 			<h1 class="landing">Press to start:)</h1>
 		</button>
 	{:else}
+		<a in:fade href="https://github.com/alfkristian02/svelte_typing_game"
+			><img class="github-logo" src="/images/github-mark.png" alt="GitHub Logo" /></a
+		>
 		<h1 class="title">Select level:</h1>
 		{#each levels as level}
 			<a class="level-button" tabindex={show_start_screen ? -1 : 0} href={'/'.concat(level.route)}
@@ -54,6 +57,12 @@
 } -->
 
 <style>
+	.github-logo {
+		position: absolute;
+		height: 40px;
+		left: 30px;
+		top: 30px;
+	}
 	.landing {
 		color: #ff3e00;
 		justify-content: center;
