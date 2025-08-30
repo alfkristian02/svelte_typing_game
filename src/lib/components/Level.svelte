@@ -11,6 +11,12 @@
 
 	let send_word_falling_interval: ReturnType<typeof setInterval>;
 
+	// fix window resizes when keyboard is opened on phone (ios)
+	let view_height = $state(window.innerHeight);
+	function updateVh() {
+		view_height = window.innerHeight;
+	}
+
 	$effect(() => {
 		const index = active_words.findIndex((word: string) => word === value.trim().toLowerCase());
 
@@ -31,15 +37,23 @@
 	}
 
 	onMount(() => {
+		// fix window resizes when keyboard is opened on phone (ios)
+		window.addEventListener('resize', updateVh);
+
 		send_word_falling_interval = setInterval(send_word_falling, word_drop_interval);
 
-		return () => clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
+		return () => {
+			clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
+
+			// fix window resizes when keyboard is opened on phone (ios)
+			window.removeEventListener('resize', updateVh);
+		};
 	});
 </script>
 
 <a class="back" href="/">&larr;</a>
 
-<div class="falling_words">
+<div class="falling_words" style="height: {view_height * 0.7}px;">
 	{#if game_end}
 		<h2 class="game_end_text" transition:fly>
 			{active_words.length === 0 ? 'You win!' : 'Game over...'}
@@ -98,7 +112,6 @@
 	.falling_words {
 		font-family: 'level_font';
 		width: 70vw;
-		height: 70dvh;
 		margin: auto;
 		position: relative;
 		display: grid; /* to vertically align the game_end text*/
