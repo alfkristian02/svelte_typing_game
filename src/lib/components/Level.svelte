@@ -11,12 +11,6 @@
 
 	let send_word_falling_interval: ReturnType<typeof setInterval>;
 
-	// fix window resizes when keyboard is opened on phone (ios)
-	let view_height = $state(window.innerHeight);
-	function updateVh() {
-		view_height = window.innerHeight;
-	}
-
 	$effect(() => {
 		const index = active_words.findIndex((word: string) => word === value.trim().toLowerCase());
 
@@ -37,68 +31,46 @@
 	}
 
 	onMount(() => {
-		// fix window resizes when keyboard is opened on phone (ios)
-		window.addEventListener('resize', updateVh);
-
 		send_word_falling_interval = setInterval(send_word_falling, word_drop_interval);
 
-		return () => {
-			clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
-
-			// fix window resizes when keyboard is opened on phone (ios)
-			window.removeEventListener('resize', updateVh);
-		};
+		return () => clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
 	});
 </script>
 
-<div class="scale-wrapper" style="--vh: {view_height}px;">
-	<a class="back" href="/">&larr;</a>
+<a class="back" href="/">&larr;</a>
 
-	<div class="falling_words">
-		{#if game_end}
-			<h2 class="game_end_text" transition:fly>
-				{active_words.length === 0 ? 'You win!' : 'Game over...'}
-			</h2>
-		{/if}
+<div class="falling_words">
+	{#if game_end}
+		<h2 class="game_end_text" transition:fly>
+			{active_words.length === 0 ? 'You win!' : 'Game over...'}
+		</h2>
+	{/if}
 
-		{#each active_words as word (word)}
-			<p
-				style="right: {Math.random() * 90}%;"
-				in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
-				onintroend={() => {
-					clearInterval(send_word_falling_interval); // stop new words form falling
-					game_end = true;
-				}}
-			>
-				{word}
-			</p>
-		{/each}
+	{#each active_words as word (word)}
+		<p
+			style="right: {Math.random() * 90}%;"
+			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
+			onintroend={() => {
+				clearInterval(send_word_falling_interval); // stop new words form falling
+				game_end = true;
+			}}
+		>
+			{word}
+		</p>
+	{/each}
 
-		<div class="flames-container">
-			<img
-				src="/images/flames.png"
-				alt="Flames, meaning that the game ends if a words falls to here"
-			/>
-		</div>
+	<div class="flames-container">
+		<img
+			src="/images/flames.png"
+			alt="Flames, meaning that the game ends if a words falls to here"
+		/>
 	</div>
-
-	<!-- svelte-ignore a11y_autofocus -->
-	<input autofocus disabled={game_end} type="text" bind:value />
 </div>
 
-<style>
-	.scale-wrapper {
-		--base-height: 800; /* design height in px */
-		height: var(--vh);
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		transform-origin: top;
-		transform: scale(calc(var(--vh) / var(--base-height)));
-		transition: transform 0.2s ease-out;
-	}
+<!-- svelte-ignore a11y_autofocus -->
+<input autofocus disabled={game_end} type="text" bind:value />
 
+<style>
 	.back {
 		position: absolute;
 		text-decoration: none;
@@ -158,7 +130,6 @@
 
 		margin-top: 4vh;
 		scale: 1.5;
-		font-size: 16px;
 	}
 
 	@media (min-width: 800px) {
