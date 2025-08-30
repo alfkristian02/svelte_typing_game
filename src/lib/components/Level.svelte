@@ -51,40 +51,54 @@
 	});
 </script>
 
-<a class="back" href="/">&larr;</a>
+<div class="scale-wrapper" style="--vh: {view_height}px;">
+	<a class="back" href="/">&larr;</a>
 
-<div class="falling_words" style="height: {view_height * 0.7}px;">
-	{#if game_end}
-		<h2 class="game_end_text" transition:fly>
-			{active_words.length === 0 ? 'You win!' : 'Game over...'}
-		</h2>
-	{/if}
+	<div class="falling_words">
+		{#if game_end}
+			<h2 class="game_end_text" transition:fly>
+				{active_words.length === 0 ? 'You win!' : 'Game over...'}
+			</h2>
+		{/if}
 
-	{#each active_words as word (word)}
-		<p
-			style="right: {Math.random() * 90}%;"
-			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
-			onintroend={() => {
-				clearInterval(send_word_falling_interval); // stop new words form falling
-				game_end = true;
-			}}
-		>
-			{word}
-		</p>
-	{/each}
+		{#each active_words as word (word)}
+			<p
+				style="right: {Math.random() * 90}%;"
+				in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
+				onintroend={() => {
+					clearInterval(send_word_falling_interval); // stop new words form falling
+					game_end = true;
+				}}
+			>
+				{word}
+			</p>
+		{/each}
 
-	<div class="flames-container">
-		<img
-			src="/images/flames.png"
-			alt="Flames, meaning that the game ends if a words falls to here"
-		/>
+		<div class="flames-container">
+			<img
+				src="/images/flames.png"
+				alt="Flames, meaning that the game ends if a words falls to here"
+			/>
+		</div>
 	</div>
+
+	<!-- svelte-ignore a11y_autofocus -->
+	<input autofocus disabled={game_end} type="text" bind:value />
 </div>
 
-<!-- svelte-ignore a11y_autofocus -->
-<input autofocus disabled={game_end} type="text" bind:value />
-
 <style>
+	.scale-wrapper {
+		--base-height: 800; /* design height in px */
+		height: var(--vh);
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		transform-origin: top;
+		transform: scale(calc(var(--vh) / var(--base-height)));
+		transition: transform 0.2s ease-out;
+	}
+
 	.back {
 		position: absolute;
 		text-decoration: none;
@@ -112,6 +126,7 @@
 	.falling_words {
 		font-family: 'level_font';
 		width: 70vw;
+		height: 70dvh;
 		margin: auto;
 		position: relative;
 		display: grid; /* to vertically align the game_end text*/
