@@ -1,11 +1,5 @@
 export const levels = [
 	{
-		title: 'test',
-		route: 'test',
-		word_drop_interval: 100,
-		words: ['test']
-	},
-	{
 		title: 'Level 1 — Introduction',
 		route: 'level1',
 		word_drop_interval: 2500,
