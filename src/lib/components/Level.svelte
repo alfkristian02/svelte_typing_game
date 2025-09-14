@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { fisher_yates_shuffle } from '$lib/utils/fisher-yates_shuffle';
+	import { onMount, tick } from 'svelte';
 	import { linear } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 
@@ -9,6 +10,9 @@
 	let game_end: boolean = $state(false);
 	let value: string = $state('');
 
+	let word_list_copy: Array<string> = $state(fisher_yates_shuffle(word_list));
+	let inputElement: HTMLInputElement;
+
 	let send_word_falling_interval: ReturnType<typeof setInterval>;
 
 	$effect(() => {
@@ -17,23 +21,55 @@
 		if (index !== -1) {
 			active_words.splice(index, 1);
 			value = '';
-			if (active_words.length === 0 && word_list.length === 0) {
-				game_end = true;
-			}
+			if (active_words.length === 0 && word_list_copy.length === 0) end_game();
 		}
 	});
 
 	function send_word_falling() {
-		active_words.push(word_list.pop());
-		if (word_list.length === 0) {
+		active_words.push(word_list_copy.pop()!);
+		if (word_list_copy.length === 0) {
 			clearInterval(send_word_falling_interval);
 		}
+	}
+
+	async function restart_game() {
+		value = '';
+		word_list_copy = [];
+		active_words = [];
+		word_list_copy = fisher_yates_shuffle(word_list);
+		send_word_falling_interval = setInterval(send_word_falling, word_drop_interval);
+		game_end = false;
+
+		await tick(); // to let the DOM update
+		inputElement.focus();
+	}
+
+	let handleKeyDown: (event: KeyboardEvent) => void = (event: KeyboardEvent) => {
+		if (
+			event.code === 'Enter' ||
+			event.code === 'Space' ||
+			event.key === ' ' ||
+			event.key == 'Spacebar'
+		) {
+			event.preventDefault();
+			window.removeEventListener('keydown', handleKeyDown);
+
+			restart_game();
+		}
+	};
+
+	function end_game() {
+		game_end = true;
+		window.addEventListener('keydown', handleKeyDown);
 	}
 
 	onMount(() => {
 		send_word_falling_interval = setInterval(send_word_falling, word_drop_interval);
 
-		return () => clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
+		return () => {
+			clearInterval(send_word_falling_interval); // called when component is unmounted, e.g. when a new page is navigated to. also something I checked, clearInterval() is idempotent.
+			window.removeEventListener('keydown', handleKeyDown);
+		};
 	});
 </script>
 
@@ -44,6 +80,7 @@
 		<h2 class="game_end_text" transition:fly>
 			{active_words.length === 0 ? 'You win!' : 'Game over...'}
 		</h2>
+		<button onclick={restart_game}>Play again</button>
 	{/if}
 
 	{#each active_words as word (word)}
@@ -52,7 +89,7 @@
 			in:fly={{ delay: 0, duration: 20000, easing: linear, opacity: 1, y: '-70dvh' }}
 			onintroend={() => {
 				clearInterval(send_word_falling_interval); // stop new words form falling
-				game_end = true;
+				end_game();
 			}}
 		>
 			{word}
@@ -68,7 +105,7 @@
 </div>
 
 <!-- svelte-ignore a11y_autofocus -->
-<input autofocus disabled={game_end} type="text" bind:value />
+<input bind:this={inputElement} autofocus disabled={game_end} type="text" bind:value />
 
 <style>
 	.back {
@@ -149,6 +186,30 @@
 		letter-spacing: 15px;
 		font-size: 40px;
 		text-align: center;
-		align-self: center;
+		align-self: flex-end;
+	}
+
+	button {
+		all: unset;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(135deg, #ff7f50, #ff4500);
+		color: white;
+		border-radius: 5px;
+		cursor: pointer;
+		letter-spacing: 2px;
+		transition: all 0.2s ease-in-out;
+		margin: 0rem auto 0;
+		white-space: nowrap;
+		height: 2rem;
+		padding: 10px;
+	}
+
+	button:hover,
+	button:focus {
+		transform: scale(1.1);
+		background: linear-gradient(135deg, #ff6347, #ff3e00);
+		outline: none;
 	}
 </style>
