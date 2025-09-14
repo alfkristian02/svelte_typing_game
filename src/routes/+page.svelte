@@ -4,23 +4,23 @@
 	import { fade, fly } from 'svelte/transition';
 
 	let show_start_screen: boolean = $state(true);
-	let handleKeyPress: (event: KeyboardEvent) => void;
+	let handleKeyDown: (event: KeyboardEvent) => void;
 
 	onMount(() => {
-		handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === 'Enter' || event.key === ' ') {
+		handleKeyDown = (event: KeyboardEvent) => {
+			if (event.code === 'Enter' || event.code === 'Space' || event.key === ' ' || event.key == 'Spacebar') {
 				event.preventDefault();
 				show_start_screen = false;
 
-				window.removeEventListener('keydown', handleKeyPress);
+				window.removeEventListener('keydown', handleKeyDown);
 			}
 		};
 
-		window.addEventListener('keydown', handleKeyPress);
+		window.addEventListener('keydown', handleKeyDown);
 	});
 
 	onDestroy(() => {
-		if (handleKeyPress) window.removeEventListener('keydown', handleKeyPress);
+		if (handleKeyDown) window.removeEventListener('keydown', handleKeyDown);
 	});
 </script>
 
