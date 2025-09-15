@@ -16,7 +16,7 @@
 	let send_word_falling_interval: ReturnType<typeof setInterval>;
 
 	$effect(() => {
-		const index = active_words.findIndex((word: string) => word === value.trim().toLowerCase());
+		const index = active_words.findIndex((word: string) => word === (value.trim().charAt(0).toLowerCase() + value.trim().slice(1)));
 
 		if (index !== -1) {
 			active_words.splice(index, 1);
